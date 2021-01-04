@@ -25,6 +25,25 @@ var questions = {
 };
 
 
+var qAddEmployee = [
+   
+];
+
+var qAddRole = [
+
+
+];
+
+var qUpdateRole = [
+
+
+];
+
+var qUpdateManager=[
+   
+  
+]
+
 
 module.exports={questions,qUpdateManager,qUpdateRole,qAddEmployee,qAddRole
 
