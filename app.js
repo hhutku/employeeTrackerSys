@@ -112,4 +112,53 @@ async function viewByRole() {
     }
 }
 
+
+async function viewByManager() {
+    try {
+        const table = await db.viewByManager();
+        console.table(table);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+async function addEmployee() {
+    const answers = await inquirer.prompt(quest.qAddEmployee);
+    try {
+        const table = await db.addEmployee(answers.firstName, answers.lastName, answers.roleId.split(" ")[0], answers.managerId.split(" ")[0]);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+async function viewByDepartment() {
+    try {
+        const table = await db.nameFromDepartment();
+    
+        var choices = table.map(department => `${department.name}`);
+    } catch (err) {
+        console.log(err)
+    }
+    const answers = await inquirer.prompt([
+        {
+            name: "choice",
+            type: "list",
+            choices: choices,
+            message: "CHOOSE DEPARTMENT :",
+        },
+    ]);
+
+    try {
+        const table = await db.viewByDepartment(answers.choice);
+        console.table(table);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 start();
