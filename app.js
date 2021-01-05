@@ -161,4 +161,36 @@ async function viewByDepartment() {
     }
 }
 
+
+async function addDepartment() {
+    const answers = await inquirer.prompt([
+        {
+            name: "department",
+            type: "input",
+            message: "ENTER DEPARTMENT NAME",
+            validate: val => /[0-9a-zA-Z-_.]/gi.test(val),
+        },
+
+    ])
+    try {
+        const table = await db.addDepartment(answers.department);
+
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
+async function addRole() {
+    const answers = await inquirer.prompt(quest.qAddRole);
+    try {
+        const table = await db.addRole(answers.title, answers.salary, answers.departmentId.split(" ")[0]);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
 start();
