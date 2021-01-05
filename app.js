@@ -193,4 +193,26 @@ async function addRole() {
 
 }
 
+
+async function updateEmpRole() {
+    const answers = await inquirer.prompt(quest.qUpdateRole);
+    try {
+        const table = await db.updateEmpRole(answers.roleId.split(" ")[0], answers.employeeId.split(" ")[0]);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+async function updateEmpManager() {
+    const answers = await inquirer.prompt(quest.qUpdateManager);
+    try {
+        const table = await db.updateEmpManager(answers.managerId.split(" ")[0], answers.employeeId.split(" ")[0]);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
 start();
