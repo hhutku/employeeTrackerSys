@@ -263,4 +263,30 @@ async function deleteRole() {
 
 }
 
+
+async function deleteEmployee() {
+    const answers = await inquirer.prompt([
+        {
+            name: "id",
+            type: "list",
+            message: "Choose an employee : ",
+            choices: async function () {
+                const table = await db.employees();
+                var employees = table.map(employee => `${employee.id} ${employee.first_name} ${employee.last_name}`);
+                return employees;
+            }
+
+        }
+    ]);
+
+    try {
+        const table = await db.deleteEmployee(answers.id.split(" ")[0]);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
+
 start();
