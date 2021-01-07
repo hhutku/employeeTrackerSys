@@ -215,4 +215,52 @@ async function updateEmpManager() {
 
 }
 
+
+async function deleteDepartment() {
+    const answers = await inquirer.prompt([
+        {
+            name: "id",
+            type: "list",
+            message: "Choose DEPARTMENT : ",
+            choices: async function () {
+                const table = await db.departments();
+                var departments = table.map(department => `${department.id}  ${department.name}`);
+                return departments;
+            }
+
+        }
+    ]);
+    try {
+        const table = await db.deleteDepartment(answers.id.split(" ")[0]);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
+async function deleteRole() {
+    const answers = await inquirer.prompt([
+        {
+            name: "id",
+            type: "list",
+            message: "Choose a role : ",
+            choices: async function () {
+                const table = await db.roles();
+                var roles = table.map(role => `${role.id} ${role.title} `);
+                return roles;
+            }
+
+        }
+    ]);
+
+    try {
+        const table = await db.deleteRole(answers.id.split(" ")[0]);
+        start();
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
 start();
